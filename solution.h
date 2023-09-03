@@ -4,7 +4,8 @@
 
 #ifndef CPP_SOLUTION_H
 #define CPP_SOLUTION_H
-
+#include "vector"
+using namespace std;
 struct ListNode {
     int val;
     ListNode *next;
@@ -70,6 +71,22 @@ public:
             a.insert(a.end(), b.begin(), b.end());
         }
         return;
+    }
+};
+
+class Solution0 {
+public:
+    TreeNode *sortedArrayToBST(vector<int> &nums) {
+        TreeNode *a = nullptr;
+        if (nums.empty())return a;
+        a=new TreeNode(nums[nums.size()/2]);
+        nums.erase(nums.begin()+nums.size()/2);
+        vector<int> nums1;
+        copy(nums.begin(),nums.begin()+(nums.size()+1)/2, back_inserter(nums1));
+        nums.erase(nums.begin(),nums.begin()+(nums.size()+1)/2);
+        a->left= sortedArrayToBST(nums1);
+        a->right= sortedArrayToBST(nums);
+        return a;
     }
 };
 
