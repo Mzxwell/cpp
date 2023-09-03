@@ -4,8 +4,11 @@
 
 #ifndef CPP_SOLUTION_H
 #define CPP_SOLUTION_H
+
 #include "vector"
+
 using namespace std;
+
 struct ListNode {
     int val;
     ListNode *next;
@@ -79,13 +82,27 @@ public:
     TreeNode *sortedArrayToBST(vector<int> &nums) {
         TreeNode *a = nullptr;
         if (nums.empty())return a;
-        a=new TreeNode(nums[nums.size()/2]);
-        nums.erase(nums.begin()+nums.size()/2);
+        a = new TreeNode(nums[nums.size() / 2]);
+        nums.erase(nums.begin() + nums.size() / 2);
         vector<int> nums1;
-        copy(nums.begin(),nums.begin()+(nums.size()+1)/2, back_inserter(nums1));
-        nums.erase(nums.begin(),nums.begin()+(nums.size()+1)/2);
-        a->left= sortedArrayToBST(nums1);
-        a->right= sortedArrayToBST(nums);
+        copy(nums.begin(), nums.begin() + (nums.size() + 1) / 2, back_inserter(nums1));
+        nums.erase(nums.begin(), nums.begin() + (nums.size() + 1) / 2);
+        a->left = sortedArrayToBST(nums1);
+        a->right = sortedArrayToBST(nums);
+        return a;
+    }
+
+    vector<vector<int>> generate(int numRows) {
+        vector<vector<int>> a;
+        if(numRows==0)return a;
+        for (int i = 0; i < numRows; ++i) {
+            vector<int> b;
+            for (int j = 0; j <=i; ++j) {
+                int c=(j&&i?a[i-1][j-1]:0)+(j!=i&&i?a[i-1][j]:0);
+                b.push_back(c?c:1);
+            }
+            a.push_back(b);
+        }
         return a;
     }
 };

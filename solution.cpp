@@ -17,4 +17,11 @@ int main(){
         cout << listNode->val << endl;
         listNode=listNode->next;
     }
+    for (const auto& sub_vector : (new Solution0)->generate(5)) {
+        cout << "{";
+        for (const auto& element : sub_vector) {
+            cout << element << ", ";
+        }
+        cout << "}\n";
+    }
 }
