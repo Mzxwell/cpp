@@ -108,23 +108,20 @@ public:
 
     vector<vector<int>> permute(vector<int> nums) {
         vector<vector<int>> permutations;
+        int trans;
         for (int a=0;a<nums.size();a++) {
-            vector<int> c(nums);
-            c.erase(c.begin()+a);
-            vector<vector<int>> b=helper(nums[a], permute(c));
+            trans=nums[a];
+            nums.erase(nums.begin()+a);
+            vector<vector<int>> b=helper(trans, permute(nums));
             permutations.insert(permutations.end(),b.begin(),b.end());
+            nums.insert(nums.begin()+a,trans);
         }
         return permutations;
     }
     static vector<vector<int>> helper(int a, vector<vector<int>> b){
-        vector<vector<int>>c;
-        for(const auto& item:b){
-            const vector<int>& d(item);
-            c.push_back(d);
-        }
-        for(auto & i : c)i.push_back(a);
-        if(c.empty())c.push_back({a});
-        return c;
+        for(auto & i : b)i.push_back(a);
+        if(b.empty())b.push_back({a});
+        return b;
     }
 };
 
