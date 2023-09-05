@@ -24,4 +24,12 @@ int main(){
         }
         cout << "}\n";
     }
+    vector<int> b={1,2,3};
+    for (const auto& sub_vector : (new Solution0)->permute(b)) {
+        cout << "{";
+        for (const auto& element : sub_vector) {
+            cout << element << ", ";
+        }
+        cout << "}\n";
+    }
 }

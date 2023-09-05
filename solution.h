@@ -94,16 +94,37 @@ public:
 
     vector<vector<int>> generate(int numRows) {
         vector<vector<int>> a;
-        if(numRows==0)return a;
+        if (numRows == 0)return a;
         for (int i = 0; i < numRows; ++i) {
             vector<int> b;
-            for (int j = 0; j <=i; ++j) {
-                int c=(j&&i?a[i-1][j-1]:0)+(j!=i&&i?a[i-1][j]:0);
-                b.push_back(c?c:1);
+            for (int j = 0; j <= i; ++j) {
+                int c = (j && i ? a[i - 1][j - 1] : 0) + (j != i && i ? a[i - 1][j] : 0);
+                b.push_back(c ? c : 1);
             }
             a.push_back(b);
         }
         return a;
+    }
+
+    vector<vector<int>> permute(vector<int> nums) {
+        vector<vector<int>> permutations;
+        for (int a=0;a<nums.size();a++) {
+            vector<int> c(nums);
+            c.erase(c.begin()+a);
+            vector<vector<int>> b=helper(nums[a], permute(c));
+            permutations.insert(permutations.end(),b.begin(),b.end());
+        }
+        return permutations;
+    }
+    static vector<vector<int>> helper(int a, vector<vector<int>> b){
+        vector<vector<int>>c;
+        for(const auto& item:b){
+            const vector<int>& d(item);
+            c.push_back(d);
+        }
+        for(auto & i : c)i.push_back(a);
+        if(c.empty())c.push_back({a});
+        return c;
     }
 };
 
