@@ -5,6 +5,8 @@
 #ifndef CPP_SOLUTION_H
 #define CPP_SOLUTION_H
 
+#include <string>
+#include <algorithm>
 #include "vector"
 
 using namespace std;
@@ -109,19 +111,42 @@ public:
     vector<vector<int>> permute(vector<int> nums) {
         vector<vector<int>> permutations;
         int trans;
-        for (int a=0;a<nums.size();a++) {
-            trans=nums[a];
-            nums.erase(nums.begin()+a);
-            vector<vector<int>> b=helper(trans, permute(nums));
-            permutations.insert(permutations.end(),b.begin(),b.end());
-            nums.insert(nums.begin()+a,trans);
+        for (int a = 0; a < nums.size(); a++) {
+            trans = nums[a];
+            nums.erase(nums.begin() + a);
+            vector<vector<int>> b = helper(trans, permute(nums));
+            permutations.insert(permutations.end(), b.begin(), b.end());
+            nums.insert(nums.begin() + a, trans);
         }
         return permutations;
     }
-    static vector<vector<int>> helper(int a, vector<vector<int>> b){
-        for(auto & i : b)i.push_back(a);
-        if(b.empty())b.push_back({a});
+
+    static vector<vector<int>> helper(int a, vector<vector<int>> b) {
+        for (auto &i: b)i.push_back(a);
+        if (b.empty())b.push_back({a});
         return b;
+    }
+
+    int ones(int num) { return num <= 1 ? num : ones(num / 2) + num % 2; }
+
+    static int max(int arr[], int l, int r) {
+        if (l == r)return arr[l];
+        int mid = (l + r) / 2, a = max(arr, l, mid), b = max(arr, mid + 1, r);
+        return a < b ? b : a;
+    }
+
+    static double average(int a[], int l, int r) {
+        return l == r ? (double) a[r] / (r + 1) : (double) a[l] / (r + 1) + average(a, l + 1, r);
+    }
+
+    static int nodeNum(ListNode *a) { return a == nullptr ? 0 : 1 + nodeNum(a->next); }
+
+    static bool isPalindrome(string string1) {
+        string1.erase(remove_if(string1.begin(), string1.end(), [](char i) { return isspace(i) || ispunct(i); }),
+                      string1.end());
+        transform(string1.begin(), string1.end(), string1.begin(), [](char c) { return tolower(c); });
+        size_t len = string1.length();
+        return string1.length() <= 1 || (string1[0] == string1[len - 1] && isPalindrome(string1.substr(1, len-2)));
     }
 };
 

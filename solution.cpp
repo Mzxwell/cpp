@@ -12,6 +12,7 @@ int main(){
     list3.next=&list6;
     list4.next=&list3;
     solution a=*new solution;
+    cout << Solution0::nodeNum(&list1);
     ListNode *listNode=a.mergeTwoLists(&list1,&list4);
     while (listNode!= nullptr){
         cout << listNode->val << endl;
