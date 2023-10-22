@@ -13,9 +13,9 @@ union DAndI {
 int main() {
     DAndI dAndI;
     cin >> dAndI.a;
-    cout << bitset<64>(dAndI.u).to_string().substr(12)<<endl;
+    cout << bitset<64>(dAndI.u).to_string().substr(12) << endl;
     int i = 1234567890;
     float f = 1.23456789e10;
     cout << (bool) (i == (int) (float) i) << (bool) (i == (int) (double) i) << (bool) (f == (float) (int) f)
-         << (bool) (f == (float) (double) f);
+         << (bool) (f == (float) (double) f) << (bool) (i == (float) i);
 }

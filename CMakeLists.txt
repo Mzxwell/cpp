@@ -7,3 +7,4 @@ add_executable(cpp main.cpp)
 add_executable(solution solution.cpp
         solution.h)
 add_executable(DBit DBit.cpp)
+add_executable(link link.cpp)
