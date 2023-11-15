@@ -8,3 +8,4 @@ add_executable(solution solution.cpp
         solution.h)
 add_executable(DBit DBit.cpp)
 add_executable(link link.cpp)
+add_executable(BLL BLL.cpp)

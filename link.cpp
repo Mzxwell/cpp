@@ -1,14 +1,10 @@
 //
 // Created by Jinx on 2023/10/22.
 //
-#include "iostream"
+#include "solution.h"
 using namespace std;
-struct node{
-    int num=0;
-    node *right,*left;
-};
-void swapS(node* cursor){
-    node*temp=cursor->right;
+
+[[maybe_unused]] void swapS(node* cursor){
     cursor->right=cursor->right->right;
 }
 int main(){

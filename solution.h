@@ -10,16 +10,32 @@
 #include "vector"
 
 using namespace std;
-
+struct node{
+    int num=0;
+    node *right{},*left{};
+};
+static int countLeaf(const node*node0) {
+    if(node0==nullptr)return 0;
+    node* l=node0->left,*r=node0->right;
+    return l==nullptr&&r==nullptr? 1:countLeaf(l)+countLeaf(r);
+}
+static void swap(node*node0) {
+    if(node0==nullptr)return;
+    node *temp=node0->left,*r=node0->right;
+    node0->left=r;
+    node0->right=temp;
+    swap(temp);
+    swap(r);
+}
 struct ListNode {
     int val;
     ListNode *next;
 
     ListNode() : val(0), next(nullptr) {}
 
-    ListNode(int x) : val(x), next(nullptr) {}
+    explicit ListNode(int x) : val(x), next(nullptr) {}
 
-    ListNode(int x, ListNode *next) : val(x), next(next) {}
+    [[maybe_unused]] ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
 
 struct TreeNode {
@@ -29,17 +45,16 @@ struct TreeNode {
 
     TreeNode() : val(0), left(nullptr), right(nullptr) {}
 
-    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+    explicit TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
 
     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
 };
 
 class solution {
 public:
-    ListNode *mergeTwoLists(ListNode *list1, ListNode *list2) {
-        ListNode *result, *now = new ListNode;
+    static ListNode *mergeTwoLists(ListNode *list1, ListNode *list2) {
+        ListNode  *now = new ListNode,*result=now;
         *now = ListNode();
-        result = now;
         while (list1 != nullptr && list2 != nullptr) {
             if (list1->val < list2->val) {
                 now->next = list1;
@@ -56,9 +71,9 @@ public:
 
 };
 
-class Solution {
+class [[maybe_unused]] Solution {
 public:
-    vector<int> inorderTraversal(TreeNode *root) {
+    vector<int> inorderTraversal(TreeNode const*root) {
         vector<int> a;
         if (root == nullptr)return a;
         a.push_back(root->val);
@@ -66,7 +81,7 @@ public:
         return a;
     }
 
-    void traversal(TreeNode *left, vector<int> &a, TreeNode *right) {
+    void traversal(TreeNode const*left, vector<int> &a, TreeNode const*right) {
         if (left != nullptr) {
             vector<int> b = inorderTraversal(left);
             a.insert(a.begin(), b.begin(), b.end());
@@ -75,26 +90,25 @@ public:
             vector<int> b = inorderTraversal(right);
             a.insert(a.end(), b.begin(), b.end());
         }
-        return;
-    }
+           }
 };
 
 class Solution0 {
 public:
-    TreeNode *sortedArrayToBST(vector<int> &nums) {
+    static TreeNode *sortedArrayToBST(vector<int> &nums) {
         TreeNode *a = nullptr;
         if (nums.empty())return a;
         a = new TreeNode(nums[nums.size() / 2]);
-        nums.erase(nums.begin() + nums.size() / 2);
+        nums.erase(nums.begin() + (int)nums.size() / 2);
         vector<int> nums1;
-        copy(nums.begin(), nums.begin() + (nums.size() + 1) / 2, back_inserter(nums1));
-        nums.erase(nums.begin(), nums.begin() + (nums.size() + 1) / 2);
+        copy(nums.begin(), nums.begin() + ((int)nums.size() + 1) / 2, back_inserter(nums1));
+        nums.erase(nums.begin(), nums.begin() + ((int)nums.size() + 1) / 2);
         a->left = sortedArrayToBST(nums1);
         a->right = sortedArrayToBST(nums);
         return a;
     }
 
-    vector<vector<int>> generate(int numRows) {
+    static vector<vector<int>> generate(int numRows) {
         vector<vector<int>> a;
         if (numRows == 0)return a;
         for (int i = 0; i < numRows; ++i) {
@@ -108,7 +122,7 @@ public:
         return a;
     }
 
-    vector<vector<int>> permute(vector<int> nums) {
+    static vector<vector<int>> permute(vector<int> nums) {
         vector<vector<int>> permutations;
         int trans;
         for (int a = 0; a < nums.size(); a++) {
@@ -127,7 +141,7 @@ public:
         return b;
     }
 
-    int ones(int num) { return num <= 1 ? num : ones(num / 2) + num % 2; }
+    int static ones(int num) { return num <= 1 ? num : ones(num / 2) + num % 2; }
 
     static int max(int arr[], int l, int r) {
         if (l == r)return arr[l];
@@ -139,7 +153,7 @@ public:
         return l == r ? (double) a[r] / (r + 1) : (double) a[l] / (r + 1) + average(a, l + 1, r);
     }
 
-    static int nodeNum(ListNode *a) { return a == nullptr ? 0 : 1 + nodeNum(a->next); }
+    static auto nodeNum(ListNode const*a) -> int { return a == nullptr ? 0 : 1 + nodeNum(a->next); }
 
     static bool isPalindrome(string string1) {
         string1.erase(remove_if(string1.begin(), string1.end(), [](char i) { return isspace(i) || ispunct(i); }),
