@@ -7,13 +7,41 @@
 
 #include <string>
 #include <algorithm>
+#include <iostream>
+
 #include "vector"
 
 using namespace std;
 struct node{
+    int leftSide{};
     int num=0;
-    node *right{},*left{};
+    node *right=nullptr,*left=nullptr;
 };
+static int setLeftSide(node *node0) {
+    if(node0==nullptr)return 0;
+    node0->leftSide=1+setLeftSide(node0->left);
+    return node0->leftSide+setLeftSide(node0->right);
+}
+static int setNum(node*node0,int num) {
+    if(node0==nullptr)return num-1;
+    int left = setNum(node0->left,num);
+    node0->num=left+1;
+    int right = setNum(node0->right,left+2);
+    return right;
+}
+static int k_thSmall(node const*node0,int offset,int k) {
+    if(node0==nullptr)return 0;
+    int rank=node0->leftSide+offset;
+    if(rank==k)return node0->num;
+    if(rank<k)return k_thSmall(node0->right,rank,k);
+    return k_thSmall(node0->left,offset,k);
+}
+static void visit(node const*node0,bool isNum) {
+    if (node0==nullptr)return;
+    visit(node0->left,isNum);
+    cout <<(isNum?node0->num:node0->leftSide)<<" ";
+    visit(node0->right,isNum);
+}
 static int countLeaf(const node*node0) {
     if(node0==nullptr)return 0;
     node* l=node0->left,*r=node0->right;
