@@ -6,7 +6,7 @@
 #include "iostream"
 using namespace std;
 int main(){
-    ListNode list1= ListNode(1),list2= ListNode(2),list3=ListNode(3),list4= ListNode(1),list5= ListNode(4),list6=ListNode(4);
+    auto list1= ListNode(1),list2= ListNode(2),list3=ListNode(3),list4= ListNode(1),list5= ListNode(4),list6=ListNode(4);
     list1.next=&list2;
     list2.next=&list5;
     list3.next=&list6;
@@ -19,7 +19,7 @@ int main(){
         listNode=listNode->next;
     }
     for (const auto& sub_vector : (new Solution0)->generate(5)) {
-        cout << "{";
+        cout << "{";    
         for (const auto& element : sub_vector) {
             cout << element << ", ";
         }

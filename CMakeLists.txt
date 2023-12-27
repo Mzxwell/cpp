@@ -9,3 +9,4 @@ add_executable(solution solution.cpp
 add_executable(DBit DBit.cpp)
 add_executable(link link.cpp)
 add_executable(BLL BLL.cpp)
+add_executable(type type.cpp)

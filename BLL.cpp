@@ -25,5 +25,12 @@ int main() {
     cout << endl;
     setNum(node0[10], 1);
     visit(node0[10],true);
-    cout << endl<< k_thSmall(node0[10],0,2);
+    cout << endl<< k_thSmall(node0[10],0,2)<<endl<<isBST(node0[10]);
+    node0[5]->num=0;
+    cout<< isBST(node0[10])<<endl;
+    visit(node0[10],true);
+    cout<<endl;
+    vector<int> a={1,8,51,65,2,55,48,98,21,33,24,44,6,70,99,50,20,111,23,147};
+    a=Solution0::heapsort(a,20,80);
+    for (const auto b:a)cout<<b<<" ";
 }
