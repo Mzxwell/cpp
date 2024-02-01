@@ -103,7 +103,7 @@ struct TreeNode {
 
     explicit TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
 
-    TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+    [[maybe_unused]] TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
 };
 
 class solution {
@@ -255,6 +255,6 @@ public:
 /**
 *打印vector<int>
 */
-static void print_vector_int(const vector<int> &a) { for (const auto &element: a)std::cout << element << " "; }
+[[maybe_unused]] static void print_vector_int(const vector<int> &a) { for (const auto &element: a)std::cout << element << " "; }
 
 #endif //CPP_SOLUTION_H
