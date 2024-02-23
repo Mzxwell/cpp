@@ -19,7 +19,7 @@ struct node {
     node *right = nullptr, *left = nullptr;
 };
 
-static bool isBST(node* node0) {
+static bool isBST(node *node0) {
     if (!node0)return true;
     stack<node *> nodes;
     for (; node0; node0 = node0->left)nodes.push(node0);
@@ -36,13 +36,13 @@ static bool isBST(node* node0) {
     }
 }
 
-static int setLeftSide(node* node0) {
+static int setLeftSide(node *node0) {
     if (node0 == nullptr)return 0;
     node0->leftSide = 1 + setLeftSide(node0->left);
     return node0->leftSide + setLeftSide(node0->right);
 }
 
-static int setNum(node* node0, int num) {
+static int setNum(node *node0, int num) {
     if (node0 == nullptr)return num - 1;
     int left = setNum(node0->left, num);
     node0->num = left + 1;
@@ -50,7 +50,7 @@ static int setNum(node* node0, int num) {
     return right;
 }
 
-static int k_thSmall(node const* node0, int offset, int k) {
+static int k_thSmall(node const *node0, int offset, int k) {
     if (node0 == nullptr)return 0;
     int rank = node0->leftSide + offset;
     if (rank == k)return node0->num;
@@ -58,20 +58,20 @@ static int k_thSmall(node const* node0, int offset, int k) {
     return k_thSmall(node0->left, offset, k);
 }
 
-static void visit(node const* node0, bool isNum) {
+static void visit(node const *node0, bool isNum) {
     if (node0 == nullptr)return;
     visit(node0->left, isNum);
     cout << (isNum ? node0->num : node0->leftSide) << " ";
     visit(node0->right, isNum);
 }
 
-static int countLeaf(const node* node0) {
+static int countLeaf(const node *node0) {
     if (node0 == nullptr)return 0;
     node *l = node0->left, *r = node0->right;
     return l == nullptr && r == nullptr ? 1 : countLeaf(l) + countLeaf(r);
 }
 
-static void swap(node* node0) {
+static void swap(node *node0) {
     if (node0 == nullptr)return;
     node *temp = node0->left, *r = node0->right;
     node0->left = r;
@@ -82,7 +82,7 @@ static void swap(node* node0) {
 
 struct ListNode {
     int val;
-    ListNode* next;
+    ListNode *next;
 
     ListNode() : val(0), next(nullptr) {
     }
@@ -90,36 +90,43 @@ struct ListNode {
     explicit ListNode(int x) : val(x), next(nullptr) {
     }
 
-    [[maybe_unused]] ListNode(int x, ListNode* next) : val(x), next(next) {
+    [[maybe_unused]] ListNode(int x, ListNode *next) : val(x), next(next) {
     }
 };
 
 struct TreeNode {
     int val;
-    TreeNode* left;
-    TreeNode* right;
+    TreeNode *left;
+    TreeNode *right;
 
-    TreeNode() : val(0), left(nullptr), right(nullptr) {
-    }
+    TreeNode() : val(0), left(nullptr), right(nullptr) {}
 
-    explicit TreeNode(int x) : val(x), left(nullptr), right(nullptr) {
-    }
+    explicit TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
 
-    TreeNode(int x, TreeNode* left, TreeNode* right) : val(x), left(left), right(right) {
-    }
+    [[maybe_unused]] TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
 };
 
 class solution {
 public:
-    static ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+    vector<int> postorderTraversal(TreeNode *root) {
+        if (!root)return {};
+        return merge_vector_int(postorderTraversal(root->left), postorderTraversal(root->right),root->val);
+    }
+
+    static vector<int> merge_vector_int(vector<int> a, vector<int> b,int c) {
+        a.insert(a.end(), b.begin(), b.end());
+        a.push_back(c);
+        return a;
+    }
+
+    static ListNode *mergeTwoLists(ListNode *list1, ListNode *list2) {
         ListNode *now = new ListNode, *result = now;
         *now = ListNode();
         while (list1 != nullptr && list2 != nullptr) {
             if (list1->val < list2->val) {
                 now->next = list1;
                 list1 = list1->next;
-            }
-            else {
+            } else {
                 now->next = list2;
                 list2 = list2->next;
             }
@@ -132,7 +139,7 @@ public:
 
 class [[maybe_unused]] Solution {
 public:
-    vector<int> inorderTraversal(TreeNode const* root) {
+    vector<int> inorderTraversal(TreeNode const *root) {
         vector<int> a;
         if (root == nullptr)return a;
         a.push_back(root->val);
@@ -140,7 +147,7 @@ public:
         return a;
     }
 
-    void traversal(TreeNode const* left, vector<int>&a, TreeNode const* right) {
+    void traversal(TreeNode const *left, vector<int> &a, TreeNode const *right) {
         if (left != nullptr) {
             vector<int> b = inorderTraversal(left);
             a.insert(a.begin(), b.begin(), b.end());
@@ -154,14 +161,14 @@ public:
 
 class Solution0 {
 public:
-    static TreeNode* sortedArrayToBST(vector<int>&nums) {
-        TreeNode* a = nullptr;
+    static TreeNode *sortedArrayToBST(vector<int> &nums) {
+        TreeNode *a = nullptr;
         if (nums.empty())return a;
         a = new TreeNode(nums[nums.size() / 2]);
-        nums.erase(nums.begin() + (int)nums.size() / 2);
+        nums.erase(nums.begin() + (int) nums.size() / 2);
         vector<int> nums1;
-        copy(nums.begin(), nums.begin() + ((int)nums.size() + 1) / 2, back_inserter(nums1));
-        nums.erase(nums.begin(), nums.begin() + ((int)nums.size() + 1) / 2);
+        copy(nums.begin(), nums.begin() + ((int) nums.size() + 1) / 2, back_inserter(nums1));
+        nums.erase(nums.begin(), nums.begin() + ((int) nums.size() + 1) / 2);
         a->left = sortedArrayToBST(nums1);
         a->right = sortedArrayToBST(nums);
         return a;
@@ -195,7 +202,7 @@ public:
     }
 
     static vector<vector<int>> helper(int a, vector<vector<int>> b) {
-        for (auto&i: b)i.push_back(a);
+        for (auto &i: b)i.push_back(a);
         if (b.empty())b.push_back({a});
         return b;
     }
@@ -209,10 +216,10 @@ public:
     }
 
     static double average(int a[], int l, int r) {
-        return l == r ? (double)a[r] / (r + 1) : (double)a[l] / (r + 1) + average(a, l + 1, r);
+        return l == r ? (double) a[r] / (r + 1) : (double) a[l] / (r + 1) + average(a, l + 1, r);
     }
 
-    static auto nodeNum(ListNode const* a) -> int { return a == nullptr ? 0 : 1 + nodeNum(a->next); }
+    static auto nodeNum(ListNode const *a) -> int { return a == nullptr ? 0 : 1 + nodeNum(a->next); }
 
     static bool isPalindrome(string string1) {
         string1.erase(remove_if(string1.begin(), string1.end(), [](char i) { return isspace(i) || ispunct(i); }),
@@ -226,8 +233,8 @@ public:
     static vector<T> heapsort(vector<T> a, T low, T high) {
         int len = a.size() - 1;
         for (int i = 0; i <= len; ++i) {
-            while ((low > a[len]||a[len] > high)&&len>0) --len;
-            if (low > a[i]||a[i] > high)swap(a[i], a[len--]);
+            while ((low > a[len] || a[len] > high) && len > 0) --len;
+            if (low > a[i] || a[i] > high)swap(a[i], a[len--]);
         }
         for (int i = (len + 1) / 2 - 1; i >= 0; --i) heap_fy(a, len, i);
         for (; len > 0; heap_fy(a, --len, 0)) swap(a[0], a[len]);
@@ -244,5 +251,10 @@ public:
         }
     }
 };
+
+/**
+*打印vector<int>
+*/
+[[maybe_unused]] static void print_vector_int(const vector<int> &a) { for (const auto &element: a)std::cout << element << " "; }
 
 #endif //CPP_SOLUTION_H
