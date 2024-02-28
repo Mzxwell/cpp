@@ -14,7 +14,7 @@ struct p_node {
 };
 
 static p_node pNode0 = p_node(0,0);
-static int sum = 0, max_num = 0, board[9][9] = {0};
+static int sum = 0, max_num = 0, board[9][9] = {0},N;
 
 void second(p_node* pNode) {
     sum += board[pNode->x][pNode->y];
@@ -35,8 +35,8 @@ void first(p_node* pNode) {
 }
 
 void creat(p_node* pNode, int x, int y) {
-    int j0 = 9;
-    for (int i = x; i < 9; ++i)
+    int j0 = N;
+    for (int i = x; i < N; ++i)
         for (int j = i == x ? y + 1 : y; j < j0; ++j)
             if (board[i][j]) {
                 j0 = j;
@@ -47,12 +47,12 @@ void creat(p_node* pNode, int x, int y) {
 }
 
 int main() {
-    getchar();
     int x, y;
+    cin>>N;
     while (1) {
         cin >> x >> y;
         if (!x)break;
-        cin >> board[x][y];
+        cin >> board[x-1][y-1];
     }
     creat(&pNode0, 0, 0);
     first(&pNode0);
