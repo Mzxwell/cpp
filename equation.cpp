@@ -11,7 +11,7 @@ using namespace std;
 int main() {
     double a, b, l = 0, r = 10, m = 5;
     cin >> a >> b;
-    double res = f(m), lr = f(l), rr = f(r);
+    double res = f(m), rr = f(r);
     while (res != 0) {
         if (rr * res < 0) l = m;
         else {
