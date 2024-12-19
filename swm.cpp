@@ -147,8 +147,13 @@ public:
 
     void rangeQuery(float food_lower, float food_upper, float service_lower, float service_upper,
                     float environment_lower, float environment_upper) {
-        for (auto &entry: reviews) {
-            Review &review = entry.second.front();
+        list<Review> all_reviews;
+
+        for (auto &entry: reviews) all_reviews.push_back(entry.second.front());
+
+        all_reviews.sort([](const Review &a, const Review &b) { return a.customer_id > b.customer_id; });
+        for (auto &entry: all_reviews) {
+            Review &review = entry;
             if (review.food_rating >= food_lower && review.food_rating <= food_upper &&
                 review.service_rating >= service_lower && review.service_rating <= service_upper &&
                 review.environment_rating >= environment_lower && review.environment_rating <= environment_upper) {
