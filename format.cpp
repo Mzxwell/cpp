@@ -1,35 +1,14 @@
-//
-// Created by Jinx on 24-9-20.
-//
 #include "iostream"
-#include "algorithm"
-
-using namespace std;
 
 int main() {
-    string s;
-    int k;
-    cin >> s >> k;
-    s.erase(remove(s.begin(), s.end(), '-'), s.end());
-    transform(s.begin(), s.end(), s.begin(), ::toupper);
-    int flag = s[0] < 'A' ? 1 : 2;
-    for (int i = 1, f = 0, l = s.length(),l0=0; i < l; i++) {
+    std::string s, s0;
+    int k, i = 1, f = 0, l0 = 0, l, flag;
+    std::cin >> s >> k;
+    for (char c: s) if (c != '-') s0.push_back(toupper(c));
+    for (flag = s0[0] < 'A' ? 1 : 2, l = s0.length(); i < l; flag |= s0[(i++) + l0] < 'A' ? 1 : 2)
         if (i % k == f) {
-            s.insert(i+l0, "-");
-            l0++;
-            if (i / k == (k-1) && i % k == 0) {
-                f = l % k;
-                flag = 3;
-            } else {
-                if (flag < 3) {
-                    flag = 0;
-                    break;
-                }
-                flag = 0;
-            }
+            if (s0.insert(i + (l0++), "-"), i / k == (k - 1) && i % k == 0) f = l % k, flag = 3;
+            else if (flag -= 3) break;
         }
-        flag |= s[i+l0] < 'A' ? 1 : 2;
-    }
-    if (flag == 3)cout << s;
-    else cout << "INVALID";
+    std::cout << (flag == 3 ? s0 : "INVALID");
 }
