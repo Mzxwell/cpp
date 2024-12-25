@@ -51,3 +51,15 @@ add_executable(times times.cpp)
 add_executable(ssa ssa.cpp)
 add_executable(key key.cpp)
 add_executable(pkf pkf.cpp)
+add_executable(arr arr.cpp
+        ArrayList.cpp
+        ArrayList.h)
+add_executable(Mc0 Mc0.cpp)
+add_executable(MC MC.cpp)
+add_executable(myc mycm.cpp
+        MyContainer.h
+        MyContainer.cpp)
+add_executable(myc0 myc0.h
+        mycm0.cpp
+        myc0.cpp)
+add_executable(mqm0 mqmm0.cpp mam0.cpp mqm.h)
