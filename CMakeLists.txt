@@ -63,3 +63,4 @@ add_executable(myc0 myc0.h
         mycm0.cpp
         myc0.cpp)
 add_executable(mqm0 mqmm0.cpp mam0.cpp mqm.h)
+add_executable(new_target1 excption.cpp)
