@@ -65,3 +65,4 @@ add_executable(myc0 myc0.h
 add_executable(mqm0 mqmm0.cpp mam0.cpp mqm.h)
 add_executable(new_target1 excption.cpp)
 add_executable(new_target2 jicheng.cpp)
+add_executable(new_target3 maxDistance.cpp)
