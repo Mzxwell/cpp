@@ -5,6 +5,7 @@
 #include <array>
 #include <numeric>
 #include <unordered_map>
+#include <algorithm>
 #include "vector"
 
 using namespace std;
@@ -32,8 +33,21 @@ public:
             for (auto b: a)count[b - 'a']++;
             mp[count].push_back(a);
         }
-        vector<vector<string>>r;
-        for(auto a:mp)r.push_back(a.second);
+        vector<vector<string>> r;
+        for (auto a: mp)r.push_back(a.second);
+        return r;
+    }
+
+    vector<vector<string>> groupAnagrams0(vector<string> &strs) {
+        unordered_map<string, vector<string>> map;
+        for (auto a : strs) {
+            string string1 = a;
+            sort(string1.begin(), string1.end());
+            map[string1].emplace_back(a);
+        }
+        vector<vector<string>> r;
+        for (auto a : map)
+            r.emplace_back(a.second);
         return r;
     }
 };
