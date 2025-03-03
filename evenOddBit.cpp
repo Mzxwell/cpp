@@ -6,6 +6,7 @@
 #include <numeric>
 #include <unordered_map>
 #include <algorithm>
+#include <unordered_set>
 #include "vector"
 
 using namespace std;
@@ -40,14 +41,28 @@ public:
 
     vector<vector<string>> groupAnagrams0(vector<string> &strs) {
         unordered_map<string, vector<string>> map;
-        for (auto a : strs) {
+        for (auto a: strs) {
             string string1 = a;
             sort(string1.begin(), string1.end());
             map[string1].emplace_back(a);
         }
         vector<vector<string>> r;
-        for (auto a : map)
+        for (auto a: map)
             r.emplace_back(a.second);
         return r;
+    }
+
+    int longestConsecutive(vector<int> &nums) {
+        int max = 0;
+        unordered_set<int> set;
+        for (auto a: nums)set.insert(a);
+        for (auto a: set) {
+            if (!set.contains(a - 1)) {
+                int t = 1;
+                while (set.contains(++a))t++;
+                if (t > max)max = t;
+            }
+        }
+        return max;
     }
 };
