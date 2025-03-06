@@ -67,17 +67,27 @@ public:
     }
 
     void moveZeroes(vector<int> &nums) {
-        for (int i=0,j=nums.size();i<j;) {
-            if (nums[i] == 0){
-                nums.erase(nums.begin()+i);
+        for (int i = 0, j = nums.size(); i < j;) {
+            if (nums[i] == 0) {
+                nums.erase(nums.begin() + i);
                 nums.emplace_back(0);
                 j--;
-            }else{
+            } else {
                 i++;
             }
         }
     }
-    void moveZeroes0(vector<int> &nums) {for (int n = nums.size(), r = 0, l = 0; r < n; r++)if (nums[r])swap(nums[r], nums[l++]);}
-};
 
-}
+    void moveZeroes0(vector<int> &nums) {
+        for (int n = nums.size(), r = 0, l = 0; r < n; r++)
+            if (nums[r])
+                swap(nums[r], nums[l++]);
+    }
+
+    int maxArea(vector<int> &height) {
+        int max0 = 0, l = 0, r = height.size() - 1, min0;
+        while (r > l) min0 = height[l] < height[r] ? height[l++] : height[r--], max0 = max(max0, min0 * (r - l + 1));
+        return max0;
+    }
+
+};
