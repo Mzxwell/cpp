@@ -65,4 +65,19 @@ public:
         }
         return max;
     }
+
+    void moveZeroes(vector<int> &nums) {
+        for (int i=0,j=nums.size();i<j;) {
+            if (nums[i] == 0){
+                nums.erase(nums.begin()+i);
+                nums.emplace_back(0);
+                j--;
+            }else{
+                i++;
+            }
+        }
+    }
+    void moveZeroes0(vector<int> &nums) {for (int n = nums.size(), r = 0, l = 0; r < n; r++)if (nums[r])swap(nums[r], nums[l++]);}
 };
+
+}
