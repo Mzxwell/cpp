@@ -90,4 +90,21 @@ public:
         return max0;
     }
 
+    vector<vector<int>> threeSum(vector<int> &nums) {
+        int len = nums.size();
+        sort(nums.begin(), nums.end());
+        vector<vector<int>> ans;
+        unordered_set<int> set(nums.begin(), nums.end());
+        for (int i = 0, j = 1; nums[i] <= 0 && j < len; j = i + 1) {
+            while (j < len && nums[i] + nums[j] * 2 <= 0) {
+                int t = 0 - nums[i] - nums[j];
+                if (set.contains(t) && (t != nums[j] || (j + 1 < len && t == nums[j + 1])))
+                    ans.push_back({nums[i], nums[j], t});
+                j++;
+            }
+            while ((++i) < len && nums[i] == nums[i - 1]);
+        }
+        return ans;
+    }
+
 };
