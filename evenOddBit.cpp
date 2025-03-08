@@ -107,4 +107,18 @@ public:
         return ans;
     }
 
+    int trap0(vector<int> &height) {
+#define h height
+        int ans = 0, s = h.size();
+        for (int l = 0, r = 1, t = 0; r < s; r++)if (h[r] >= h[l])l = r, ans += t, t = 0; else t += h[l] - h[r];
+        for (int l = s - 2, r = s - 1, t = 0; l >= 0; l--)if (h[l] > h[r])r = l, ans += t, t = 0; else t += h[r] - h[l];
+        return ans;
+    }
+
+    int trap(vector<int> &height) {
+#define h height
+        int a = 0, i = 0, j = 0, l = 0, r = height.size() - 1, b, c;
+        while (l < r)if (b = h[l], i = max(i, b), c = h[r], j = max(j, c), i < j)a += i - b, l++; else a += j - c, r--;
+        return a;
+    }
 };
