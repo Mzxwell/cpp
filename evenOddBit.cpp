@@ -121,4 +121,26 @@ public:
         while (l < r)if (b = h[l], i = max(i, b), c = h[r], j = max(j, c), i < j)a += i - b, l++; else a += j - c, r--;
         return a;
     }
+
+    int lengthOfLongestSubstring0(string s) {
+        int l = 0, r = 0, len = s.length(), ans = 0;
+        unordered_map<char, int> map;
+        while (r < len) {
+            while (r < len && (map.find(s[r]) == map.end()))
+                map[s[r++]] = r;
+            ans = max(ans, r - l);
+            if (r == len)
+                break;
+            for (int t = map[s[r]] + 1; l < t; ++l) map.erase(s[l]);
+            l++;
+        }
+        return ans;
+    }
+
+    int lengthOfLongestSubstring(string s) {
+        int r = 0, i = s.length(), m = 0;
+        unordered_set<char> a;
+        for (int l = 0; l < i; m = max(m, r - l), a.erase(s[l++]))while (r < i && !a.contains(s[r]))a.insert(s[r++]);
+        return m;
+    }
 };
