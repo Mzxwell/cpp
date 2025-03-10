@@ -137,28 +137,6 @@ public:
     }
 };
 
-class [[maybe_unused]] Solution {
-public:
-    vector<int> inorderTraversal(TreeNode const *root) {
-        vector<int> a;
-        if (root == nullptr)return a;
-        a.push_back(root->val);
-        if (root->right != nullptr || root->left != nullptr)traversal(root->left, a, root->right);
-        return a;
-    }
-
-    void traversal(TreeNode const *left, vector<int> &a, TreeNode const *right) {
-        if (left != nullptr) {
-            vector<int> b = inorderTraversal(left);
-            a.insert(a.begin(), b.begin(), b.end());
-        }
-        if (right != nullptr) {
-            vector<int> b = inorderTraversal(right);
-            a.insert(a.end(), b.begin(), b.end());
-        }
-    }
-};
-
 class Solution0 {
 public:
     static TreeNode *sortedArrayToBST(vector<int> &nums) {

@@ -1,6 +1,7 @@
 //
 // Created by Jinx on 25-2-20.
 //
+#include "queue"
 #include <string>
 #include <array>
 #include <numeric>
@@ -8,6 +9,7 @@
 #include <algorithm>
 #include <unordered_set>
 #include "vector"
+#include "solution.h"
 
 using namespace std;
 
@@ -142,5 +144,21 @@ public:
         unordered_set<char> a;
         for (int l = 0; l < i; m = max(m, r - l), a.erase(s[l++]))while (r < i && !a.contains(s[r]))a.insert(s[r++]);
         return m;
+    }
+
+    int depth0(TreeNode *root) { return root == nullptr ? 0 : 1 + max(depth0(root->left), depth0(root->right)); }
+
+    int maxDepth(TreeNode *root) {
+#define P(t) if (t)Q.push(t)
+        queue<TreeNode *> Q;
+        P(root); else return 0;
+        int ans = 0;
+        for (; !Q.empty(); ans++)
+            for (int i = Q.size(); i; --i, Q.pop()) {
+                TreeNode *t = Q.front();
+                P(t->right);
+                P(t->left);
+            }
+        return ans;
     }
 };
