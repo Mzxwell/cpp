@@ -10,6 +10,7 @@
 #include <unordered_set>
 #include "vector"
 #include "solution.h"
+#include <functional>
 
 using namespace std;
 
@@ -161,4 +162,28 @@ public:
             }
         return ans;
     }
+
+
+    int numIslands(vector<vector<char>> &g) {
+        int ans = 0, x = g.size(), y = g[0].size(), t, r, fr, pr;
+        vector<int> p(x * y, -1);
+        function<int(int)> f = [&p, &f](int x) { return x == p[x] ? x : p[x] = f(p[x]); };
+        for (int i = 0; i < x; ++i)
+            for (int j = 0; j < y; ++j) {
+                if (g[i][j] == '1') {
+                    if (p[pr = i * y + j] == -1)p[pr] = pr, ans++;
+                    if (p[pr] != -1) {
+                        t = f(i * y + j);
+                        if (i + 1 < x && g[i + 1][j] == '1')p[(i + 1) * y + j] = t;
+                        if (j + 1 < y && g[i][j + 1] == '1') {
+                            r = i * y + j + 1;
+                            if (p[r] == -1)p[r] = t;
+                            else if ((fr = f(r)) != t)p[t] = fr, ans--;
+                        }
+                    }
+                }
+            }
+        return ans;
+    }
+
 };
